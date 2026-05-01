@@ -1,9 +1,11 @@
 use std::io;
 use rand::Rng;
+use std::cmp::Ordering;
 
 fn main() {
-    println!("Guess the number");
+    println!("Guess the number GAME!");
 
+    loop{
     println!("Please input your guess.");
 
     let mut guess = String::new();
@@ -22,9 +24,13 @@ fn main() {
 
     let guess: u32 = guess.trim().parse().expect("Please type a number!");
 
-    if guess == random_number {
-        println!("You win!");
-    } else {
-        println!("You lose!");
+    match guess.cmp(&random_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => {
+            println!("You win!"); 
+            break;
+        }
+     }
     }
 }
